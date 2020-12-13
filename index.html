@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous"/>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1 class="text-center bg-dark text-white pb-3 mb-0">Weather Dashboard</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 bg-light">
+                    <h4 class="pt-2">Search for a City:</h4>
+                    <form id="citySearchForm" class="input-group pb-3">
+                        <input type="text" id="cityInput" class="form-control">
+                        <button id="searchBtn" class="input-group-append btn btn-primary"><i class="fa fa-search"></i></button>
+                    </form>
+                    <div class="card mb-4 hidden">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row card m-1 p-3 hidden" id="searchedCityCard">
+                        <h2 id="searchedCity">
+                    
+                        </h2>
+                        <p id="temperature">
+                            
+                        </p>
+                        <p id="humidity">
+                            
+                        </p>
+                        <p id="windSpeed">
+                            
+                        </p>
+                        <p id="uvIndex">
+                            
+                        </p>
+                    </div>
+                    <div>
+                        <h3>5-Day Forecast:</h3>
+                        <div class="row p-3 justify-content-between">
+                            <div class="card p-2 bg-primary text-white">
+                                <h4>date</h4>
+                                <p>temp</p>
+                                <p>humidity</p>
+                            </div>
+                            <div class="card p-2 bg-primary text-white">
+                                <h4>date</h4>
+                                <p>temp</p>
+                                <p>humidity</p>
+                            </div>
+                            <div class="card p-2 bg-primary text-white">
+                                <h4>date</h4>
+                                <p>temp</p>
+                                <p>humidity</p>
+                            </div>
+                            <div class="card p-2 bg-primary text-white">
+                                <h4>date</h4>
+                                <p>temp</p>
+                                <p>humidity</p>
+                            </div>
+                            <div class="card p-2 bg-primary text-white">
+                                <h4>date</h4>
+                                <p>temp</p>
+                                <p>humidity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
