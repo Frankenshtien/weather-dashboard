@@ -9,6 +9,7 @@ var uvIndexText = ""
 var searchedLat = ""
 var searchedLon = ""
 var pastSearchesArray = []
+var fiveDayArray = []
 
 
 var searchCityHandler = function(cityBeingSearched) {
@@ -16,13 +17,12 @@ var searchCityHandler = function(cityBeingSearched) {
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                searchedCityName = data.name;
                 temperature = data.main.temp;
                 humidity = data.main.humidity;
                 windSpeed = data.wind.speed;
                 searchedLat = data.coord.lat;
                 searchedLon = data.coord.lon;
-                pastSearchesArray.push(searchedCityName);
+                pastSearchesArray.push(cityBeingSearched);
                 localStorage.setItem("pastSearches", pastSearchesArray);
             })
             .then(function() {
@@ -60,13 +60,13 @@ var dayWeatherDisplay = function() {
     var newDayUV = document.createElement("p");
     newDayUV.setAttribute("id", "uvIndex")
     if (uvIndexText < 2) {
-        newDayUV.setAttribute("class", "bg-success");
+        newDayUV.setAttribute("class", " bg-success");
     } 
     else if (uvIndexText > 2 && uvIndexText < 5) {
-        newDayUV.setAttribute("class", "badge bg-warning");
+        newDayUV.setAttribute("class", "bg-warning");
     }
     else {
-        newDayUV.setAttribute("class", "badge bg-danger");
+        newDayUV.setAttribute("class", "bg-danger");
     }
 
     newSearchedCity.textContent = searchedCityName;
@@ -82,10 +82,50 @@ var dayWeatherDisplay = function() {
     currentDayHumidity.replaceWith(newDayHumidity);
     currentDayWind.replaceWith(newDayWind);
     currentDayUV.replaceWith(newDayUV);
-    
+
+    set5DayForecast();
+}
+
+var set5DayForecast = function() {
+    fetch("http://api.openweathermap.org/data/2.5/forecast?q=" + searchedCityEl.value + "&units=imperial&appid=c4f65212424a91087c43da15bd9126bd")
+    .then(function(response) {
+        response.json().then(function(data) {
+            fiveDayArray = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]];
+            console.log(fiveDayArray[0]);
+            for (i = 0; i < fiveDayArray.length; i++) {
+                var currentCard = document.getElementById("5DayCard" + i);
+
+                var currentH4 = document.getElementById("cardH4-" + i);
+                var currentCardTemp = document.getElementById("cardTemp-" + i);
+                var currentCardHumidity = document.getElementById("cardHumidity-" + i);
+
+                var newH4 = document.createElement("h4");
+                var newCardTemp = document.createElement("p")
+                var newCardHumidity = document.createElement("p");
+
+                newH4.setAttribute("id", "cardH4-" + i);
+                newH4.textContent = fiveDayArray[i].dt;
+                newCardTemp.setAttribute("id", "cardTemp-" + i);
+                newCardTemp.textContent = "Temp: " + fiveDayArray[i].main.temp + " °F";
+                newCardHumidity.setAttribute("id", "cardHumidity-" + i)
+                newCardHumidity.textContent = "Humidity: " + fiveDayArray[i].main.humidity + " %";
+
+                currentH4.replaceWith(newH4);
+                currentCardTemp.replaceWith(newCardTemp);
+                currentCardHumidity.replaceWith(newCardHumidity);
+            }
+        })
+    })
+}
+
+var loadPreviousSearches = function() {
+    previousCitiesArray = localStorage.getItem("pastSearches")
+    console.log(previousCitiesArray);
 }
 
 searchBtn.addEventListener("click", function(event) {
     event.preventDefault();
     searchCityHandler(searchedCityEl.value);
 });
+
+loadPreviousSearches();
