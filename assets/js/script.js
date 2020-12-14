@@ -93,7 +93,7 @@ var set5DayForecast = function() {
             fiveDayArray = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]];
             console.log(fiveDayArray[0]);
             for (i = 0; i < fiveDayArray.length; i++) {
-                var currentCard = document.getElementById("5DayCard" + i);
+                var fiveDaySection = document.getElementById("5DaySection");
 
                 var currentH4 = document.getElementById("cardH4-" + i);
                 var currentCardTemp = document.getElementById("cardTemp-" + i);
@@ -113,6 +113,9 @@ var set5DayForecast = function() {
                 currentH4.replaceWith(newH4);
                 currentCardTemp.replaceWith(newCardTemp);
                 currentCardHumidity.replaceWith(newCardHumidity);
+
+                fiveDaySection.classList.remove("hidden");
+                document.getElementById("5DayID").classList.remove("hidden")
             }
         })
     })
